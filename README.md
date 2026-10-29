@@ -3,6 +3,7 @@
 ![Quorvexis — Full visibility. Zero blind spots.](docs/images/quorvexis-hero.svg)
 
 <p align="center"><strong>Cloud Security Intelligence · Multi-Cloud Visibility · Incident Operations</strong></p>
+<p align="center"><a href="https://quorvexis-demo.vercel.app"><strong>▶ OPEN THE INTERACTIVE QUORVEXIS SHOWCASE</strong></a> &nbsp; · &nbsp; <a href="showcase/index.html">Browse the standalone demo source</a></p>
 <p align="center">
   <a href="https://github.com/samadalam481470sa-cmd/quorvexis/actions"><img src="https://github.com/samadalam481470sa-cmd/quorvexis/actions/workflows/ci.yml/badge.svg" alt="CI status"/></a>
   <img src="https://img.shields.io/badge/Stage-Prototype-172c39?labelColor=0c1a25" alt="Development prototype"/>
@@ -26,7 +27,7 @@
 <tr><td><strong>Threat intelligence</strong> — categorized simulated events and explainable risk scores.</td><td><strong>Cloud inventory</strong> — an illustrative multi-provider asset view and prioritization.</td></tr>
 </table>
 
-[View the interactive demo source](apps/web/app/demo/page.tsx) · [Deployment instructions and current blocker](DEPLOYMENT.md) · [CI run history](https://github.com/samadalam481470sa-cmd/quorvexis/actions)
+[Explore live synthetic showcase](https://quorvexis-demo.vercel.app) · [Next.js demo route](apps/web/app/demo/page.tsx) · [Deployment guide](DEPLOYMENT.md) · [CI run history](https://github.com/samadalam481470sa-cmd/quorvexis/actions)
 
 ---
 
@@ -40,7 +41,7 @@ The `/demo` route is designed for a no-login, synthetic-data walkthrough. The au
 
 - **Continuous integration:** the last checked GitHub workflow passed on October 29, 2026; subsequent changes should be checked in [Actions](https://github.com/samadalam481470sa-cmd/quorvexis/actions).
 - **Local execution:** Docker Compose and `.env` setup are required; a fully integrated runtime test has not been performed.
-- **Public demo:** Vercel's GitHub auto-deploy integration previously blocked the repository connection; see [DEPLOYMENT.md](DEPLOYMENT.md). Do not assume a hosted URL exists until one is linked and verified.
+- **Public interactive showcase:** [https://quorvexis-demo.vercel.app](https://quorvexis-demo.vercel.app) — Vercel deployment marked **READY** on October 29, 2026. It is a **separate standalone static demonstration** with synthetic samples, not the authenticated full-stack Next.js/FastAPI application. Automated GitHub-to-Vercel deployment remains unconfigured.
 - **Not yet implemented:** production auth/MFA/SSO, real integrations, a trained ML threat detector, billing, hardened cloud deployments.
 
 ## Features implemented
