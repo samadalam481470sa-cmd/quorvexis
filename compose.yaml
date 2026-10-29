@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: qvx
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: qvx
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U qvx"]
+      interval: 5s
+      retries: 10
+    networks: [internal]
+  mongo:
+    image: mongo:8
+    command: ["mongod","--bind_ip_all"]
+    volumes: [mongodata:/data/db]
+    networks: [internal]
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server","--save","","--appendonly","yes"]
+    volumes: [redisdata:/data]
+    networks: [internal]
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      ENVIRONMENT: development
+      DATABASE_URL: postgresql+asyncpg://qvx:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@postgres:5432/qvx
+      MONGODB_URL: mongodb://mongo:27017
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      ALLOWED_HOSTS: api,localhost,127.0.0.1
+      CORS_ORIGINS: http://localhost:3000
+      DEMO_MODE: ${DEMO_MODE:-false}
+    depends_on:
+      postgres: {condition: service_healthy}
+      mongo: {condition: service_started}
+      redis: {condition: service_started}
+    networks: [internal]
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      API_INTERNAL_URL: http://api:8000
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on: [api]
+    networks: [internal]
+volumes:
+  pgdata:
+  mongodata:
+  redisdata:
+networks:
+  internal:
+    driver: bridge
