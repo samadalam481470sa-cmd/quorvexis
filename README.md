@@ -1,53 +1,47 @@
 # QUORVEXIS
-### Cloud security command center · Full-stack monorepo
 
-Quorvexis is an **early-stage enterprise security operations prototype**. It combines a Next.js command center with a FastAPI service, PostgreSQL organization-scoped domain models, MongoDB telemetry, Redis-backed authentication rate limiting, deterministic explainable risk scoring, and Docker-based local orchestration.
+![Quorvexis — Full visibility. Zero blind spots.](docs/images/quorvexis-hero.svg)
 
-> **Status:** Initial engineering release. Not an audited security product. No customer integrations, live threat feeds, trained AI model, SSO, MFA, billing or production-ready database migrations are included yet. The UI shows only data explicitly created within the workspace.
+<p align="center"><strong>Cloud Security Intelligence · Multi-Cloud Visibility · Incident Operations</strong></p>
+<p align="center">
+  <a href="https://github.com/samadalam481470sa-cmd/quorvexis/actions"><img src="https://github.com/samadalam481470sa-cmd/quorvexis/actions/workflows/ci.yml/badge.svg" alt="CI status"/></a>
+  <img src="https://img.shields.io/badge/Stage-Prototype-172c39?labelColor=0c1a25" alt="Development prototype"/>
+  <img src="https://img.shields.io/badge/Data-Synthetic%20demo-1a5d55?labelColor=0c1a25" alt="Synthetic demo data"/>
+</p>
 
-**Explore the interactive product preview:** [Open the standalone demo route](apps/web/app/demo/page.tsx). This route uses synthetic client-side data, requires no database, and can be deployed independently of the authenticated API. A public hosted URL has not yet been established.
+> **Project status:** Initial proof-of-concept with a passing configured GitHub Actions workflow. The preview images below are **illustrative renders of the synthetic demo interface**, not screenshots of a live hosted, authenticated security platform. This is not a production security product.
 
-## ⚠️ Current status — why the application may not run yet
+## Product preview
 
-**Development prototype · not a hosted or production-ready application.** This repository contains an initial full-stack implementation, but **a successful end-to-end Docker build, a live deployment, and passing GitHub Actions checks have not yet been confirmed**. The repository is **not** currently presented as a publicly accessible hosted service. A visitor to GitHub cannot simply click a website and start using it.
+### Security command center
+![Quorvexis overview demo — illustrative render](docs/images/quorvexis-overview.svg)
 
-**What is implemented vs. what is not verified:**
+### Threat intelligence and cloud asset inventory
 
-| Area | Current state |
-| --- | --- |
-| Next.js frontend / FastAPI backend | Source code committed; successful full-stack startup **not yet verified** |
-| PostgreSQL, MongoDB, Redis | Local Docker Compose services configured; require working Docker and local setup |
-| Authentication, organization roles, dashboards | Initial implementation; production security review and integration verification pending |
-| GitHub Actions | Workflow files added; **no passing result independently confirmed** as of October 29, 2026 |
-| Public URL / cloud hosting | No completed public deployment supplied or verified |
-| Real cloud connectors / AI threat model | **Not implemented**; event scoring is deterministic rules-based, not trained ML |
-| Enterprise readiness | Not audited or suitable for protecting real customer infrastructure |
+<table>
+<tr>
+<td width="50%"><a href="docs/images/quorvexis-threats.svg"><img src="docs/images/quorvexis-threats.svg" alt="Quorvexis synthetic threat intelligence preview"/></a></td>
+<td width="50%"><a href="docs/images/quorvexis-assets.svg"><img src="docs/images/quorvexis-assets.svg" alt="Quorvexis synthetic multi-cloud asset inventory preview"/></a></td>
+</tr>
+<tr><td><strong>Threat intelligence</strong> — categorized simulated events and explainable risk scores.</td><td><strong>Cloud inventory</strong> — an illustrative multi-provider asset view and prioritization.</td></tr>
+</table>
 
-### Why it might not start on your machine
+[View the interactive demo source](apps/web/app/demo/page.tsx) · [Deployment instructions and current blocker](DEPLOYMENT.md) · [CI run history](https://github.com/samadalam481470sa-cmd/quorvexis/actions)
 
-- **Environment configuration is mandatory.** Copy `.env.example` to `.env` and supply a **random** `JWT_SECRET` (at least 32 characters) and URL-safe `POSTGRES_PASSWORD`. The Compose file refuses to start without them.
-- **Docker is required for the documented local workflow.** Install Docker Desktop / Docker Engine with Compose, then run `docker compose up --build` from the repository root. Build or runtime errors may still exist because the entire stack has not been validated end to end.
-- **The UI is local, not deployed to the internet.** After a successful startup, open `http://localhost:3000` **on the machine running Docker**. The API and databases are intentionally private to the Compose network.
-- **A fresh workspace has no telemetry.** Sign up and create an organization; the dashboard will initially be empty. Optional `DEMO_MODE=true` allows its owner to populate clearly labeled synthetic sample events.
-- **Production functionality is unfinished.** There is no live SIEM/cloud connector, payment system, production infrastructure, MFA/SSO, or trained AI detection service.
+---
 
-### Troubleshooting and verification
+## How this project works
 
-```bash
-# From the repository root, after configuring .env:
-docker compose config                  # Validate Compose configuration
-docker compose up --build              # Build and start local dependencies and services
-docker compose ps                      # Inspect running containers
-docker compose logs --tail=100 api web # Review errors in API/frontend
-```
+Quorvexis is an **early-stage enterprise security operations prototype** combining a Next.js command center, a FastAPI service, PostgreSQL organization-scoped models, MongoDB telemetry, Redis-backed rate limiting, deterministic explainable risk scoring, and a Docker Compose development environment.
 
-If startup fails, capture the error output from the failing container and check the [GitHub Actions runs](https://github.com/samadalam481470sa-cmd/quorvexis/actions). **A green CI run would validate its configured checks only, not production readiness.** This notice is intentionally conservative: it does **not** claim a specific build failure without logs proving one.
+The `/demo` route is designed for a no-login, synthetic-data walkthrough. The authenticated workspace needs the backend and databases. Public hosting remains separate from local execution.
 
-**For recruiters and contributors:** Quorvexis is a work-in-progress security-engineering portfolio / SaaS foundation, not yet a commercially deployable security platform. The roadmap below documents what remains.
+## ⚠️ Run and deployment status
 
-## Hosting status (October 29, 2026)
-
-A Git-connected Vercel deployment was attempted, but Vercel rejected the repository link because its **GitHub integration is not installed** on the connected Vercel account. A public deployment URL cannot be confirmed. See [DEPLOYMENT.md](DEPLOYMENT.md) for next steps and the exact deployment prerequisites.
+- **Continuous integration:** the last checked GitHub workflow passed on October 29, 2026; subsequent changes should be checked in [Actions](https://github.com/samadalam481470sa-cmd/quorvexis/actions).
+- **Local execution:** Docker Compose and `.env` setup are required; a fully integrated runtime test has not been performed.
+- **Public demo:** Vercel's GitHub auto-deploy integration previously blocked the repository connection; see [DEPLOYMENT.md](DEPLOYMENT.md). Do not assume a hosted URL exists until one is linked and verified.
+- **Not yet implemented:** production auth/MFA/SSO, real integrations, a trained ML threat detector, billing, hardened cloud deployments.
 
 ## Features implemented
 
