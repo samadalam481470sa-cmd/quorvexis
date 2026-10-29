@@ -5,6 +5,8 @@ Quorvexis is an **early-stage enterprise security operations prototype**. It com
 
 > **Status:** Initial engineering release. Not an audited security product. No customer integrations, live threat feeds, trained AI model, SSO, MFA, billing or production-ready database migrations are included yet. The UI shows only data explicitly created within the workspace.
 
+**Explore the interactive product preview:** [Open the standalone demo route](apps/web/app/demo/page.tsx). This route uses synthetic client-side data, requires no database, and can be deployed independently of the authenticated API. A public hosted URL has not yet been established.
+
 ## ⚠️ Current status — why the application may not run yet
 
 **Development prototype · not a hosted or production-ready application.** This repository contains an initial full-stack implementation, but **a successful end-to-end Docker build, a live deployment, and passing GitHub Actions checks have not yet been confirmed**. The repository is **not** currently presented as a publicly accessible hosted service. A visitor to GitHub cannot simply click a website and start using it.
@@ -42,6 +44,10 @@ docker compose logs --tail=100 api web # Review errors in API/frontend
 If startup fails, capture the error output from the failing container and check the [GitHub Actions runs](https://github.com/samadalam481470sa-cmd/quorvexis/actions). **A green CI run would validate its configured checks only, not production readiness.** This notice is intentionally conservative: it does **not** claim a specific build failure without logs proving one.
 
 **For recruiters and contributors:** Quorvexis is a work-in-progress security-engineering portfolio / SaaS foundation, not yet a commercially deployable security platform. The roadmap below documents what remains.
+
+## Hosting status (October 29, 2026)
+
+A Git-connected Vercel deployment was attempted, but Vercel rejected the repository link because its **GitHub integration is not installed** on the connected Vercel account. A public deployment URL cannot be confirmed. See [DEPLOYMENT.md](DEPLOYMENT.md) for next steps and the exact deployment prerequisites.
 
 ## Features implemented
 
